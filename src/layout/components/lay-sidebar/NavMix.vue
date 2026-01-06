@@ -1,12 +1,12 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { isAllEmpty } from "@pureadmin/utils";
 import { useNav } from "@/layout/hooks/useNav";
 import { transformI18n } from "@/plugins/i18n";
 import LaySearch from "../lay-search/index.vue";
 import LayNotice from "../lay-notice/index.vue";
-import { nextTick, onMounted, ref, toRaw, watch } from "vue";
+import { ref, toRaw, watch, onMounted, nextTick } from "vue";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { findRouteByPath, getParentPaths } from "@/router/utils";
+import { getParentPaths, findRouteByPath } from "@/router/utils";
 import { useTranslationLang } from "../../hooks/useTranslationLang";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LaySidebarExtraIcon from "../lay-sidebar/components/SidebarExtraIcon.vue";
@@ -69,11 +69,11 @@ watch(
   >
     <el-menu
       ref="menuRef"
-      :default-active="defaultActive"
-      class="horizontal-header-menu"
+      router
       mode="horizontal"
       popper-class="pure-scrollbar"
-      router
+      class="horizontal-header-menu"
+      :default-active="defaultActive"
     >
       <el-menu-item
         v-for="route in usePermissionStoreHook().wholeMenus"
@@ -103,14 +103,16 @@ watch(
       <LaySearch id="header-search" />
       <!-- 国际化 -->
       <el-dropdown id="header-translation" trigger="click">
-        <GlobalizationIcon
-          class="navbar-bg-hover w-[40px] h-[48px] p-[11px] cursor-pointer outline-hidden"
-        />
+        <div
+          class="globalization-icon navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
+        >
+          <IconifyIconOffline :icon="GlobalizationIcon" />
+        </div>
         <template #dropdown>
           <el-dropdown-menu class="translation">
             <el-dropdown-item
-              :class="['dark:text-white!', getDropdownItemClass(locale, 'zh')]"
               :style="getDropdownItemStyle(locale, 'zh')"
+              :class="['dark:text-white!', getDropdownItemClass(locale, 'zh')]"
               @click="translationCh"
             >
               <span v-show="locale === 'zh'" class="check-zh">
@@ -119,8 +121,8 @@ watch(
               简体中文
             </el-dropdown-item>
             <el-dropdown-item
-              :class="['dark:text-white!', getDropdownItemClass(locale, 'en')]"
               :style="getDropdownItemStyle(locale, 'en')"
+              :class="['dark:text-white!', getDropdownItemClass(locale, 'en')]"
               @click="translationEn"
             >
               <span v-show="locale === 'en'" class="check-en">
@@ -142,14 +144,14 @@ watch(
           <p v-if="username" class="dark:text-white">{{ username }}</p>
         </span>
         <template #dropdown>
+          <el-dropdown-item @click="toAccountSettings">
+            <IconifyIconOffline
+              :icon="AccountSettingsIcon"
+              style="margin: 5px"
+            />
+            {{ t("menus.accountSettings") }}
+          </el-dropdown-item>
           <el-dropdown-menu class="logout">
-            <el-dropdown-item @click="toAccountSettings">
-              <IconifyIconOffline
-                :icon="AccountSettingsIcon"
-                style="margin: 5px"
-              />
-              {{ t("menus.accountSettings") }}
-            </el-dropdown-item>
             <el-dropdown-item @click="logout">
               <IconifyIconOffline
                 :icon="LogoutCircleRLine"
@@ -161,8 +163,8 @@ watch(
         </template>
       </el-dropdown>
       <span
+        class="set-icon navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
         :title="t('buttons.systemSet')"
-        class="set-icon navbar-bg-hover"
         @click="onPanel"
       >
         <IconifyIconOffline :icon="Setting" />

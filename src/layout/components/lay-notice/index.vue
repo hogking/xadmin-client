@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
 import NoticeList from "./components/noticeList.vue";
-import BellIcon from "~icons/ep/bell";
+import BellIcon from "~icons/lucide/bell";
 import { userNoticeReadApi } from "@/api/user/notice";
 import { TabItem } from "@/layout/components/lay-notice/data";
 import { useRouter } from "vue-router";
@@ -131,6 +131,34 @@ const getLabel = computed(
 </template>
 
 <style lang="scss" scoped>
+/* ”铃铛“摇晃衰减动画 */
+@keyframes pure-bell-ring {
+  0%,
+  100% {
+    transform-origin: top;
+  }
+
+  15% {
+    transform: rotateZ(10deg);
+  }
+
+  30% {
+    transform: rotateZ(-10deg);
+  }
+
+  45% {
+    transform: rotateZ(5deg);
+  }
+
+  60% {
+    transform: rotateZ(-5deg);
+  }
+
+  75% {
+    transform: rotateZ(2deg);
+  }
+}
+
 .dropdown-badge {
   display: flex;
   align-items: center;
@@ -141,6 +169,12 @@ const getLabel = computed(
 
   .header-notice-icon {
     font-size: 18px;
+  }
+
+  &:hover {
+    .header-notice-icon svg {
+      animation: pure-bell-ring 1s both;
+    }
   }
 }
 

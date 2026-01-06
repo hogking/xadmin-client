@@ -1,9 +1,8 @@
-<script lang="ts" setup>
-import SearchModal from "./components/SearchModal.vue";
+<script setup lang="ts">
 import { useBoolean } from "../../hooks/useBoolean";
+import SearchModal from "./components/SearchModal.vue";
 
 const { bool: show, toggle } = useBoolean();
-
 function handleSearch() {
   toggle();
 }
@@ -12,7 +11,7 @@ function handleSearch() {
 <template>
   <div>
     <div
-      class="search-container w-[40px] h-[48px] flex-c cursor-pointer navbar-bg-hover"
+      class="search-container navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
       @click="handleSearch"
     >
       <IconifyIconOffline icon="ri/search-line" />

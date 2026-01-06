@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
 import { useNav } from "@/layout/hooks/useNav";
 
@@ -24,7 +24,10 @@ watch(
 </script>
 
 <template>
-  <span class="fullscreen-icon navbar-bg-hover" @click="toggle">
+  <span
+    class="fullscreen-icon navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
+    @click="toggle"
+  >
     <IconifyIconOffline :icon="screenIcon" />
   </span>
 </template>

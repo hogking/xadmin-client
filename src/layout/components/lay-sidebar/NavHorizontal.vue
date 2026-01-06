@@ -4,8 +4,8 @@ import { useNav } from "@/layout/hooks/useNav";
 import LaySearch from "../lay-search/index.vue";
 import LayNotice from "../lay-notice/index.vue";
 import { responsiveStorageNameSpace } from "@/config";
-import { computed, nextTick, onMounted, ref } from "vue";
-import { isAllEmpty, storageLocal } from "@pureadmin/utils";
+import { ref, nextTick, computed, onMounted } from "vue";
+import { storageLocal, isAllEmpty } from "@pureadmin/utils";
 import { useTranslationLang } from "../../hooks/useTranslationLang";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LaySidebarItem from "../lay-sidebar/components/SidebarItem.vue";
@@ -82,9 +82,11 @@ onMounted(() => {
       <LaySearch id="header-search" />
       <!-- 国际化 -->
       <el-dropdown id="header-translation" trigger="click">
-        <GlobalizationIcon
-          class="navbar-bg-hover w-[40px] h-[48px] p-[11px] cursor-pointer outline-hidden"
-        />
+        <div
+          class="globalization-icon navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
+        >
+          <IconifyIconOffline :icon="GlobalizationIcon" />
+        </div>
         <template #dropdown>
           <el-dropdown-menu class="translation">
             <el-dropdown-item
@@ -121,14 +123,14 @@ onMounted(() => {
           <p v-if="username" class="dark:text-white">{{ username }}</p>
         </span>
         <template #dropdown>
+          <el-dropdown-item @click="toAccountSettings">
+            <IconifyIconOffline
+              :icon="AccountSettingsIcon"
+              style="margin: 5px"
+            />
+            {{ t("menus.accountSettings") }}
+          </el-dropdown-item>
           <el-dropdown-menu class="logout">
-            <el-dropdown-item @click="toAccountSettings">
-              <IconifyIconOffline
-                :icon="AccountSettingsIcon"
-                style="margin: 5px"
-              />
-              {{ t("menus.accountSettings") }}
-            </el-dropdown-item>
             <el-dropdown-item @click="logout">
               <IconifyIconOffline
                 :icon="LogoutCircleRLine"
@@ -140,7 +142,7 @@ onMounted(() => {
         </template>
       </el-dropdown>
       <span
-        class="set-icon navbar-bg-hover"
+        class="set-icon navbar-bg-hover hover:[&>svg]:animate-scale-bounce"
         :title="t('buttons.systemSet')"
         @click="onPanel"
       >
