@@ -339,8 +339,8 @@ onUnmounted(() => removeMatchMedia);
         >
           <el-icon
             :color="getThemeColor(item.themeColor)"
-            :size="17"
-            style="margin: 0.1em 0.1em 0 0"
+            :size="20"
+            class="mt-px"
           >
             <IconifyIconOffline :icon="Check" />
           </el-icon>
@@ -529,17 +529,24 @@ onUnmounted(() => removeMatchMedia);
 }
 
 .theme-color {
-  height: 20px;
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
 
   li {
-    float: left;
-    height: 20px;
-    margin-right: 8px;
+    position: relative;
+    width: 21px;
+    height: 21px;
     cursor: pointer;
     border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 15%) 0 0 0 1px inset;
+    transition: all 0.2s ease;
 
-    &:nth-child(1) {
-      border: 1px solid #ddd;
+    &:hover {
+      box-shadow:
+        rgb(0 0 0 / 25%) 0 0 0 1px inset,
+        0 2px 4px rgb(0 0 0 / 15%);
+      transform: scale(1.1);
     }
   }
 }
