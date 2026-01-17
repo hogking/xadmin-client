@@ -53,12 +53,9 @@ onMounted(() => {
 
 <template>
   <div
-    :class="[
-      'min-w-[180px]',
-      deviceDetection() ? 'max-w-[100%]' : 'max-w-[70%]'
-    ]"
+    :class="['min-w-[180px]', deviceDetection() ? 'max-w-full' : 'max-w-[70%]']"
   >
-    <h3 class="my-8">{{ t("account.preference") }}</h3>
+    <h3 class="my-8!">{{ t("account.preference") }}</h3>
     <div v-for="(item, index) in list" :key="index">
       <div class="flex items-center">
         <div class="flex-1">

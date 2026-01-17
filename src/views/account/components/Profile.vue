@@ -26,12 +26,9 @@ const {
 
 <template>
   <div
-    :class="[
-      'min-w-[180px]',
-      deviceDetection() ? 'max-w-[100%]' : 'max-w-[70%]'
-    ]"
+    :class="['min-w-[180px]', deviceDetection() ? 'max-w-full' : 'max-w-[70%]']"
   >
-    <h3 class="my-8">{{ t("account.profile") }}</h3>
+    <h3 class="my-8!">{{ t("account.profile") }}</h3>
     <PlusForm
       ref="formRef"
       v-model="userInfo"
@@ -46,7 +43,7 @@ const {
         <el-avatar :size="80" :src="userinfoStore.avatar ?? avatar" />
         <el-button
           v-if="auth.upload"
-          class="ml-4"
+          class="ml-4!"
           plain
           @click="handleUpload(userInfo)"
         >
