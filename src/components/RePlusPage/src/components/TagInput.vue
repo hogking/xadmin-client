@@ -150,13 +150,13 @@ const handleTagClick = (value, index) => {
   border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
   box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color));
 
-  & ::v-deep(.el-tag) {
+  & :deep(.el-tag) {
     margin-top: 1px;
     font-family: sans-serif !important;
     cursor: pointer;
   }
 
-  & ::v-deep(.el-autocomplete) {
+  & :deep(.el-autocomplete) {
     height: 28px;
   }
 }
@@ -164,24 +164,24 @@ const handleTagClick = (value, index) => {
 .search-input {
   flex: 1;
 
-  & ::v-deep(.el-input__inner) {
+  & :deep(.el-input__inner) {
     max-width: 100%;
     padding-left: 10px;
     border: none;
   }
 }
 
-.el-input ::v-deep(.el-input__inner) {
+.el-input :deep(.el-input__inner) {
   font-size: 13px;
   border: none !important;
   box-shadow: none !important;
 }
 
-::v-deep(.el-input__wrapper) {
+:deep(.el-input__wrapper) {
   box-shadow: none !important;
 }
 
-.filter-field ::v-deep(.el-input__inner) {
+.filter-field :deep(.el-input__inner) {
   height: 28px;
 }
 

@@ -1,20 +1,15 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import {
-  computed,
-  type CSSProperties,
-  nextTick,
   type PropType,
+  type CSSProperties,
   ref,
-  unref
+  unref,
+  nextTick,
+  computed,
+  useTemplateRef
 } from "vue";
-import {
-  templateRef,
-  tryOnMounted,
-  tryOnUnmounted,
-  useDebounceFn
-} from "@vueuse/core";
+import { tryOnMounted, tryOnUnmounted, useDebounceFn } from "@vueuse/core";
 import * as utilsMethods from "./utils";
-
 const { animationFrame, copyObj } = utilsMethods;
 animationFrame();
 
@@ -63,17 +58,14 @@ if (props.classOption["key"] === undefined) {
   props.classOption["key"] = 0;
 }
 
-const wrap = templateRef<HTMLElement | null>(
-  `wrap${props.classOption["key"]}`,
-  null
+const wrap = useTemplateRef<HTMLElement | null>(
+  `wrap${props.classOption["key"]}`
 );
-const slotList = templateRef<HTMLElement | null>(
-  `slotList${props.classOption["key"]}`,
-  null
+const slotList = useTemplateRef<HTMLElement | null>(
+  `slotList${props.classOption["key"]}`
 );
-const realBox = templateRef<HTMLElement | null>(
-  `realBox${props.classOption["key"]}`,
-  null
+const realBox = useTemplateRef<HTMLElement | null>(
+  `realBox${props.classOption["key"]}`
 );
 
 const leftSwitchState = computed(() => {
@@ -506,16 +498,16 @@ defineExpose({
   <div :ref="'wrap' + classOption['key']">
     <div
       v-if="navigation"
-      :class="leftSwitchClass"
       :style="leftSwitch"
+      :class="leftSwitchClass"
       @click="leftSwitchClick"
     >
       <slot name="left-switch" />
     </div>
     <div
       v-if="navigation"
-      :class="rightSwitchClass"
       :style="rightSwitch"
+      :class="rightSwitchClass"
       @click="rightSwitchClick"
     >
       <slot name="right-switch" />
@@ -525,9 +517,9 @@ defineExpose({
       :style="pos"
       @mouseenter="enter"
       @mouseleave="leave"
-      @touchend="touchEnd"
       @touchstart.passive="touchStart"
       @touchmove.passive="touchMove"
+      @touchend="touchEnd"
       @mousewheel.passive="wheel"
     >
       <div :ref="'slotList' + classOption['key']" :style="float">
